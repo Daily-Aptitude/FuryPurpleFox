@@ -8,11 +8,11 @@ app.use(bodyParser.json());
 
 const quizRoutes = require('./routes/quizes');
 const questionRoutes = require('./routes/questions');
+const userRoutes = require('./routes/userRoutes')
 
-
-app.use(quizRoutes);
-app.use(questionRoutes);
-
+app.use('/admin',quizRoutes);
+app.use('/admin',questionRoutes);
+app.use('/user',userRoutes);
 const PORT = process.env.PORT || 3000;
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
