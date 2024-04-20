@@ -22,7 +22,6 @@ const questionSchema = new mongoose.Schema({
         required: true,
         validate: {
             validator: function(v) {
-                // Ensure the correct_answer is one of the option_ids in options
                 return this.options.some(option => option.option_id === v);
             },
             message: props => `${props.value} is not a valid option ID!`

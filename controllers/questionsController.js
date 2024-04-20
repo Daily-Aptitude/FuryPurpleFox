@@ -10,14 +10,6 @@ exports.createQuestion = async (req, res) => {
     }
 };
 
-exports.getQuestions = async (req, res) => {
-    try {
-        const questions = await Question.find({});
-        res.status(200).send(questions);
-    } catch (error) {
-        res.status(500).send(error);
-    }
-};
 
 exports.getQuestionById = async (req, res) => {
     try {
