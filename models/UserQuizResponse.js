@@ -5,7 +5,6 @@ const responseSchema = new mongoose.Schema({
     selected_option: String,
     is_correct: Boolean
 });
-
 const userQuizResponseSchema = new mongoose.Schema({
     user_id: {
         type: mongoose.Schema.Types.ObjectId,

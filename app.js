@@ -9,7 +9,6 @@ app.use(bodyParser.json());
 const quizRoutes = require('./routes/quizes');
 const questionRoutes = require('./routes/questions');
 const userRoutes = require('./routes/userRoutes')
-
 app.use('/admin',quizRoutes);
 app.use('/admin',questionRoutes);
 app.use('/user',userRoutes);

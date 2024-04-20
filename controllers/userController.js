@@ -9,7 +9,6 @@ exports.registerUser = async (req, res) => {
         res.status(400).send(error);
     }
 };
-
 exports.getUserProfileByUsername = async (req, res) => {
     try {
         const username = req.params.username;
