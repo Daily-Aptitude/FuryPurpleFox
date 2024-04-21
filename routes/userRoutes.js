@@ -9,16 +9,28 @@ router.post('/initialize-user', async (req, res) => {
     try {
         const quizzes = await fetchQuizzesByDate(date);
 
-        const user = new User({
-            email: email,
-            quizzes: quizzes.map(quiz => ({
+        // Find the user or initialize a new one
+        let user = await User.findOne({ email: email });
+        if (!user) {
+            // If the user does not exist, create a new user
+            user = new User({ email: email, quizzes: [] });
+        }
+
+        // Filter out quizzes that are already added to the user
+        const existingQuizIds = user.quizzes.map(q => q.quiz_id.toString());
+        const newQuizzes = quizzes.filter(quiz => !existingQuizIds.includes(quiz._id.toString()));
+
+        // Add new quizzes to the user's quiz array
+        newQuizzes.forEach(quiz => {
+            user.quizzes.push({
                 quiz_id: quiz._id,
                 date: quiz.date,
                 responses: [],
-                score: 0,
-            }))
+                score: 0
+            });
         });
 
+        // Save changes to the database
         await user.save();
         res.status(201).json({ message: "User initialized successfully with quizzes", user });
     } catch (error) {
