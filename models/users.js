@@ -9,16 +9,6 @@ const userSchema = new mongoose.Schema({
         date: Date,
         responses: Array,
         score: Number,
-        streak_dates: [Date],
-        questions: [{
-            question_id: mongoose.Schema.Types.ObjectId,
-            text: String,
-            options: [{
-                option_id: mongoose.Schema.Types.ObjectId,
-                text: String
-            }],
-            correct_answer: String
-        }]
     }]
 });
 
