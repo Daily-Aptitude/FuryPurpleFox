@@ -64,15 +64,17 @@ exports.deleteQuiz = async (req, res) => {
         res.status(500).send(error);
     }
 };
-
 exports.getQuizzesByDate = async (req, res) => {
     try {
-        
         const dateParam = req.params.date;
+        if (!dateParam) {
+            return res.status(400).json({ message: "Date parameter is required." });
+        }
+        
         const quizzes = await Quiz.find({
             date: {
                 $gte: new Date(`${dateParam}T00:00:00.000Z`),
-                $lte: new Date(`${dateParam}T23:59:59.999Z`) 
+                $lte: new Date(`${dateParam}T23:59:59.999Z`)
             }
         }).populate({
             path: 'questions',
